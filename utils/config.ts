@@ -1,7 +1,10 @@
 
 // import {  ArkErrors, type } from 'arktype'
 import z from 'zod'
-  
+import { config as dotEnvConfig } from 'dotenv'
+
+dotEnvConfig()
+
 // const parseConfig = type({
 //     REDIS_URL: "url>0",
 //     REDIS_TOKEN: "string>0",
