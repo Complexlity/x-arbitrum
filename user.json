@@ -1,0 +1,30 @@
+{
+  "object": "user",
+  "fid": 213144,
+  "custody_address": "0x50dccce23e65f71dcc6dbb93f88051701c812332",
+  "username": "complexlity",
+  "display_name": "Complexlity",
+  "pfp_url": "https://i.imgur.com/mt3nbeI.jpg",
+  "profile": {
+    "bio": {
+      "text": "Frame Builder: \nhttps://frames-gallery.vercel.app/,\nhttps://farcaster101.com/,\nhttps://work-and-earn.vercel.app,\nhttps://sudoku-frame-noir.vercel.app/\n"
+    }
+  },
+  "follower_count": 6900,
+  "following_count": 182,
+  "verifications": [
+    "0x8ff47879d9ee072b593604b8b3009577ff7d6809"
+  ],
+  "verified_addresses": {
+    "eth_addresses": [
+      "0x8ff47879d9ee072b593604b8b3009577ff7d6809"
+    ],
+    "sol_addresses": []
+  },
+  "active_status": "inactive",
+  "power_badge": true,
+  "viewer_context": {
+    "following": false,
+    "followed_by": false
+  }
+}
