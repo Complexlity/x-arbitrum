@@ -60,7 +60,7 @@ app.frame('/finish', async (c) => {
 app.hono.get('/nftImage', async (c) => {
   const font = {
     name: "Ojuju",
-    family: "0juju",
+    family: "Ojuju",
     weight: 600
   } as const
   return new ImageResponse(
@@ -77,6 +77,31 @@ app.hono.get('/nftImage', async (c) => {
         ]
     }
   )
+})
+
+app.hono.get('/ximage/:id', async (c) => {
+  const id = Number(c.req.param('id'))
+  if(!id) throw new Error("Image id missing")
+  const user = await getUserDetailsFromFid(id)
+  if (!user) throw new Error(`User with id ${id} not found`)
+  })
+
+app.hono.get('/xmetadata/:id', async (c) => {
+const id = Number(c.req.param('id'))
+if(!id) throw new Error("Image id missing")
+const user = await getUserDetailsFromFid(id)
+  if (!user) throw new Error(`User with id ${id} not found`)
+  return c.json({
+    "name": `${user.userName}x`,
+    "description": "",
+    "image": `/image/${id}`,
+    "attributes": [
+      {
+        "trait_type": "Tier",
+        "value": "ELITE"
+      }
+    ]
+  })
 })
 
 app.transaction('/mint', async (c) => {
@@ -104,7 +129,7 @@ function NftImage({ userImage, userName }: { userImage?: string, userName?: stri
     
   }
 
-  userName = "Complexlity"
+  // userName = "Complexlity"
   return (
     <div
   style={{

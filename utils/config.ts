@@ -3,7 +3,8 @@
 import z from 'zod'
 import { config as dotEnvConfig } from 'dotenv'
 
-dotEnvConfig()
+dotEnvConfig({ path: "./.env" })
+
 
 // const parseConfig = type({
 //     REDIS_URL: "url>0",

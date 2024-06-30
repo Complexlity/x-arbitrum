@@ -11,7 +11,7 @@ contract Burnpfs is  ERC721URIStorage, Ownable {
     uint256 public totalSupply;
     uint256 public maxSupply;
     bool public isMintEnabled;
-    string private _baseContractURI = "https://peach-worldwide-trout-968.mypinata.cloud/ipfs/QmPAVixDZMWHEoWweiPQQciUvKogvbwSafNF77XgFzPjmE";
+    string private _baseContractURI = "https://peach-worldwide-trout-968.mypinata.cloud/ipfs/QmbYFe2NRcNwRaMskXPgTevSP2GnUGw7YUk13PHP2ZRdSq";
     string private _baseTokenURI = "https://example.com/";
         
     constructor(address initialOwner) payable ERC721('farcasterXarbitrum', 'FXA') Ownable(initialOwner){
