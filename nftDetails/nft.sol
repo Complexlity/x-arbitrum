@@ -1,9 +1,7 @@
 // SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.20;
 
-import '@openzeppelin/contracts/token/ERC721/ERC721.sol';
 import '@openzeppelin/contracts/access/Ownable.sol';
-import '@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol';
 import '@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol';
 
 contract Burnpfs is  ERC721URIStorage, Ownable {
@@ -11,8 +9,9 @@ contract Burnpfs is  ERC721URIStorage, Ownable {
     uint256 public totalSupply;
     uint256 public maxSupply;
     bool public isMintEnabled;
-    string private _baseContractURI = "https://peach-worldwide-trout-968.mypinata.cloud/ipfs/QmbYFe2NRcNwRaMskXPgTevSP2GnUGw7YUk13PHP2ZRdSq";
+    string private _baseContractURI = "https://peach-worldwide-trout-968.mypinata.cloud/ipfs/QmPAVixDZMWHEoWweiPQQciUvKogvbwSafNF77XgFzPjmE";
     string private _baseTokenURI = "https://example.com/";
+    mapping (string => uint256) private fidToTokenId;
         
     constructor(address initialOwner) payable ERC721('farcasterXarbitrum', 'FXA') Ownable(initialOwner){
         maxSupply = 2**256 - 1;
@@ -63,9 +62,10 @@ contract Burnpfs is  ERC721URIStorage, Ownable {
 
     function internalMint(address _addr, string memory fid) internal {
         require(isMintEnabled, "Mint must be enabled");
-        require(balanceOf(_addr) < 1, "exceeds");
+        require(balanceOf(_addr) < 1, "Cannot own more than one NFT");
         totalSupply++;
         uint256 tokenId = totalSupply;
+        fidToTokenId[fid] = tokenId;
         _safeMint(_addr, tokenId);
         _setTokenURI(tokenId, fid);
     }
@@ -78,6 +78,10 @@ contract Burnpfs is  ERC721URIStorage, Ownable {
     function withdraw(address _addr) external onlyOwner(){
         uint256 balance = address(this).balance;
         payable(_addr).transfer(balance);
+    }
+
+    function getTokenIdForFid(string memory fid) external view returns (uint256){
+        return fidToTokenId[fid];
     }
 
 }
