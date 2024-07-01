@@ -86,7 +86,7 @@ app.hono.get('/ximage/:fid', async (c) => {
   const user = await getUserDetailsFromFid(fid)
   if (!user) throw new Error(`User with fid ${fid} not found`)
   return new ImageResponse(
-    <NftImage userImage={user.userImage} userName={user.userName} />,
+    <NftImage userImage={user.userImage} userName={user.userName.toLowerCase()} />,
     {
       fonts: [
         {
@@ -106,7 +106,7 @@ if(!fid) throw new Error("Image fid missing")
 const user = await getUserDetailsFromFid(fid)
   if (!user) throw new Error(`User with fid ${fid} not found`)
   return c.json({
-    "name": `${user.userName}Xarbitrum`,
+    "name": `${user.userName.toLowerCase()}Xarbitrum`,
     "description": `A customized NFT for ${user.userName} to show collaboration with Arbitrum`,
     "image": `${config.HOST}/api/ximage/${fid}`,
     "attributes": [
