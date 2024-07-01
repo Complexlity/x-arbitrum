@@ -1,7 +1,7 @@
 import axios from "axios";
 import { UserData } from "./types.js";
-export async function getUserDetailsFromFid(fid: number) {
-     fid = 213144
+export async function getUserDetailsFromFid(fid?: number) {
+     if(!fid) fid = 213144
   const usersUrl = "https://api.neynar.com/v2/farcaster/user/bulk";
   const usersParams = {
     fids: `${fid}`,
@@ -19,9 +19,9 @@ export async function getUserDetailsFromFid(fid: number) {
       headers: headers,
     });
       const [userData] = data.users;
-      
 
-      
+
+
     return {
         userName: userData.display_name,
         userImage: userData.pfp_url
