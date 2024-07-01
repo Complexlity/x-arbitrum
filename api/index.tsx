@@ -6,7 +6,8 @@ import { handle } from 'frog/vercel'
 import { getUserDetailsFromFid } from '../utils/getUserDetails.js'
 import { config } from '../utils/config.js'
 import { ImageResponse } from 'hono-og'
-import nftAbi from '../nftDetails/abi.json'
+import nftAbi from "../nftDetails/abi.json" assert { type: "json" };
+
 // Uncomment to use Edge Runtime.
 // export const config = {
 //   runtime: 'edge',
@@ -48,7 +49,7 @@ app.frame('/finish', async (c) => {
 
   return c.res(
     {
-      image: <NftImage userImage={userImageAndUsername?.userImage} userName={userImageAndUsername?.userName} />, 
+      image: <NftImage userImage={userImageAndUsername?.userImage} userName={userImageAndUsername?.userName} />,
       intents: [
         <Button>Share</Button>
       ]
@@ -139,7 +140,7 @@ function NftImage({ userImage, userName }: { userImage?: string, userName?: stri
     userName = "???"
     userImage = "https://i.ibb.co/VYCmKgj/dummy-Image.jpg"
 
-    
+
   }
 
   // userName = "Complexlity"
@@ -159,7 +160,7 @@ function NftImage({ userImage, userName }: { userImage?: string, userName?: stri
     backgroundSize: "100% 100%",
   }}
 >
-  
+
 <div tw="flex w-[56.9] h-[53] absolute top-[47.8] left-[35.1]">
   <img src={userImage} width="100%" height="100%" style={{
     objectFit: "cover",
