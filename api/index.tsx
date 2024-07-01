@@ -79,22 +79,35 @@ app.hono.get('/nftImage', async (c) => {
   )
 })
 
-app.hono.get('/ximage/:id', async (c) => {
-  const id = Number(c.req.param('id'))
-  if(!id) throw new Error("Image id missing")
-  const user = await getUserDetailsFromFid(id)
-  if (!user) throw new Error(`User with id ${id} not found`)
-  })
+app.hono.get('/ximage/:fid', async (c) => {
+  const fid = Number(c.req.param('fid'))
+  if(!fid) throw new Error("Image fid missing")
+  const user = await getUserDetailsFromFid(fid)
+  if (!user) throw new Error(`User with fid ${fid} not found`)
+  return new ImageResponse(
+    <NftImage userImage={user.userImage} userName={user.userName} />,
+    {
+      fonts: [
+        {
+          name: "Ojuju",
+          weight: 600,
+          data: await loadGoogleFont({family: "Ojuju",weight: 600 })
+        }
+    ]
+    }
+  )
+})
 
-app.hono.get('/xmetadata/:id', async (c) => {
-const id = Number(c.req.param('id'))
-if(!id) throw new Error("Image id missing")
-const user = await getUserDetailsFromFid(id)
-  if (!user) throw new Error(`User with id ${id} not found`)
+
+app.hono.get('/xmetadata/:fid', async (c) => {
+const fid = Number(c.req.param('fid'))
+if(!fid) throw new Error("Image fid missing")
+const user = await getUserDetailsFromFid(fid)
+  if (!user) throw new Error(`User with fid ${fid} not found`)
   return c.json({
-    "name": `${user.userName}x`,
-    "description": "",
-    "image": `/image/${id}`,
+    "name": `${user.userName}Xarbitrum`,
+    "description": `A customized NFT for ${user.userName} to show collaboration with Arbitrum`,
+    "image": `${process.env.VERCEL_URL}/ximage/${fid}`,
     "attributes": [
       {
         "trait_type": "Tier",
@@ -115,7 +128,7 @@ const { frameData } = c
     chainId: "eip155:42161",
     abi: nftAbi,
     functionName: "mint",
-    args: [],
+    args: [fid],
     to: nftAddress as `0x${string}`,
   });
 })
