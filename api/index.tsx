@@ -12,11 +12,12 @@ import { arbitrumSepolia, arbitrum } from 'viem/chains'
 
 const arbitrumClient = createPublicClient({
   transport: http(),
-  chain: arbitrumSepolia
+  chain: arbitrum
 })
 
-const OPEN_SEA_URL =
-      "https://testnets.opensea.io/collection/farcasteruserxarbitrum";
+// const OPEN_SEA_URL =
+//       "https://testnets.opensea.io/collection/farcasteruserxarbitrum";
+const OPEN_SEA_URL = "https://opensea.io/collection/farcasteruserxarbitrum";
 
 // Uncomment to use Edge Runtime.
 // export const config = {
