@@ -108,7 +108,7 @@ const user = await getUserDetailsFromFid(fid)
   return c.json({
     "name": `${user.userName}Xarbitrum`,
     "description": `A customized NFT for ${user.userName} to show collaboration with Arbitrum`,
-    "image": `${process.env.VERCEL_URL}/ximage/${fid}`,
+    "image": `${config.HOST}/api/ximage/${fid}`,
     "attributes": [
       {
         "trait_type": "Tier",
