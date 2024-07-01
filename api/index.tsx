@@ -229,6 +229,9 @@ function NftImage({ userImage, userName }: { userImage?: string, userName?: stri
 
 
   }
+  if (userName.length > 15) {
+    userName = userName.slice(0, 12) + "..."
+  }
 
   // userName = "Complexlity"
   return (
