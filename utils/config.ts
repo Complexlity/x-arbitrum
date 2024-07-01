@@ -15,8 +15,8 @@ const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
 
 
 const configParser = z.object({
-  REQUIRED_NFT_ADDRESS: z.string().startsWith("0x"),
-  
+  REQUIRED_NFT_ADDRESS: z.string().startsWith("0x").optional(),
+
 })
 
 //Make process.env types match as needed
