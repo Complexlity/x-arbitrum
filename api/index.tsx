@@ -100,7 +100,7 @@ app.frame(
   "/finish",
   async (c) => {
     const { frameData } = c;
-    const nftAddress = config.REQUIRED_NFT_ADDRESS
+    
     if (!frameData)
       return c.error({
         message: "Frame data not found",
@@ -153,15 +153,16 @@ const shareUrl = `https://warpcast.com/~/compose?${params.toString()}`;
 );
 
 app.frame('/s/:fid', async (c) => {
-  const { frameData } = c
-  const fid = Number(frameData?.fid)
+  const fid = Number(c.req.param('fid'))
   let userName, userImage;
+  console.log({fid})
   if (fid) {
     const userDetails = await getUserDetailsFromFid(fid)
     if (userDetails) {
       userName = userDetails.userName
       userImage = userDetails.userImage
     }
+    console.log({userDetails})
   }
   return (
     c.res({
