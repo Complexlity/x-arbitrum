@@ -100,7 +100,7 @@ app.frame(
   "/finish",
   async (c) => {
     const { frameData } = c;
-    
+
     if (!frameData)
       return c.error({
         message: "Frame data not found",
@@ -111,7 +111,7 @@ app.frame(
   address: config.REQUIRED_NFT_ADDRESS as Address,
   abi: nftAbi,
   functionName: "getTokenIdForFid",
-  args: ["11124"],
+  args: [`${fid}`],
   }) as bigint
     const tokenId = Number(data.toString())
     console.log({ tokenId })
@@ -162,13 +162,12 @@ app.frame('/s/:fid', async (c) => {
       userName = userDetails.userName
       userImage = userDetails.userImage
     }
-    console.log({userDetails})
   }
   return (
     c.res({
       image: <NftImage userImage={userImage} userName={userName} />,
       intents: [
-        <Button>Mint Yours</Button>,
+        <Button.Transaction target="/mint">Mint</Button.Transaction>,
         <Button.Link href={OPEN_SEA_URL}>Open Sea</Button.Link>,
       ],
     })
