@@ -40,23 +40,36 @@ app.frame('/', (c) => {
   ]
 })
 
-app.frame('/finish', async (c) => {
-  const { transactionId, frameData } = c
-  if (!frameData) return c.error({
-    message: "Frame data not found"
-  })
-  const userImageAndUsername = await getUserDetailsFromFid(frameData.fid)
+app.frame(
+  "/finish",
+  async (c) => {
+    const { frameData } = c;
+    if (!frameData)
+      return c.error({
+        message: "Frame data not found",
+      });
+    const userImageAndUsername = await getUserDetailsFromFid(frameData.fid);
 
-  return c.res(
-    {
-      image: <NftImage userImage={userImageAndUsername?.userImage} userName={userImageAndUsername?.userName} />,
-      intents: [
-        <Button>Share</Button>
-      ]
-    }
-  )
-
-})
+    return c.res({
+      image: (
+        <NftImage
+          userImage={userImageAndUsername?.userImage}
+          userName={userImageAndUsername?.userName}
+        />
+      ),
+      intents: [<Button>Share</Button>],
+    });
+  },
+  {
+    fonts: [
+      {
+        name: "Ojuju",
+        weight: 600,
+        source: "google",
+      },
+    ],
+  }
+);
 
 app.hono.get('/nftImage', async (c) => {
   const font = {
@@ -126,7 +139,7 @@ const { frameData } = c
   const fid = frameData.fid
   const nftAddress = config.REQUIRED_NFT_ADDRESS;
   return c.contract({
-    chainId: "eip155:42161",
+    chainId: "eip155:421614",
     abi: nftAbi,
     functionName: "mint",
     args: [fid],
