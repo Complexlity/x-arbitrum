@@ -168,7 +168,7 @@ app.frame('/s/:fid', async (c) => {
     c.res({
       image: <NftImage userImage={userImage} userName={userName} />,
       intents: [
-        <Button.Transaction target="/mint">Mint</Button.Transaction>,
+        <Button.Transaction target="/mint">Mint Yours</Button.Transaction>,
         <Button.Link href={OPEN_SEA_URL}>Open Sea</Button.Link>,
       ],
     })
