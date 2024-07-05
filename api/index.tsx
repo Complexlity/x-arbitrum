@@ -24,7 +24,7 @@ const OPEN_SEA_URL = "https://opensea.io/collection/farcasteruserxarbitrum";
 //   runtime: 'edge',
 // }
 export const app = new Frog({
-  title: "This is the wayt",
+  title: "Mint a special Arbitrum NFT",
   assetsPath: "/",
   basePath: "/api",
   // Supply a Hub to enable frame verification.
@@ -102,11 +102,13 @@ app.frame(
   async (c) => {
     const { frameData } = c;
 
-    if (!frameData)
-      return c.error({
-        message: "Frame data not found",
-      });
-    const fid = frameData.fid
+    // if (!frameData)
+    //   return c.error({
+    //     message: "Frame data not found",
+    //   });
+
+    // const fid = frameData.fid
+    const fid = 213183
     const userImageAndUsername = await getUserDetailsFromFid(fid);
   const data = await arbitrumClient.readContract({
   address: config.REQUIRED_NFT_ADDRESS as Address,
@@ -123,7 +125,7 @@ const params = new URLSearchParams()
 params.set("text", `Get your customized x-arbitrum NFT and share in /arbitrum. Here's mine`);
 params.append(
   "embeds[]",
-  `https:/${config.HOST}/api/s/${fid}`
+  `${config.HOST}/api/s/${fid}`
 );
 
 const shareUrl = `https://warpcast.com/~/compose?${params.toString()}`;
@@ -138,7 +140,7 @@ const shareUrl = `https://warpcast.com/~/compose?${params.toString()}`;
       ),
       intents: [
         <Button.Link href={shareUrl}>Share</Button.Link>,
-        <Button.Link href={OPEN_SEA_URL}>Open Sea</Button.Link>
+        // <Button.Link href={OPEN_SEA_URL}>Open Sea</Button.Link>
       ],
     });
   },
@@ -169,7 +171,7 @@ app.frame('/s/:fid', async (c) => {
       image: <NftImage userImage={userImage} userName={userName} />,
       intents: [
         <Button.Transaction target="/mint">Mint Yours</Button.Transaction>,
-        <Button.Link href={OPEN_SEA_URL}>Open Sea</Button.Link>,
+        // <Button.Link href={OPEN_SEA_URL}>Open Sea</Button.Link>,
       ],
     })
 )},

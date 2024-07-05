@@ -1,6 +1,6 @@
 
 import {  ArkErrors, type } from 'arktype'
-import z from 'zod'
+// import z from 'zod'
 import { config as dotEnvConfig } from 'dotenv'
 import { isAddress } from 'viem'
 
