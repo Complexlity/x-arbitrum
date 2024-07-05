@@ -3,12 +3,12 @@ import { devtools } from 'frog/dev'
 import { serveStatic } from 'frog/serve-static'
 // import { neynar } from 'frog/hubs'
 import { handle } from 'frog/vercel'
-import { getUserDetailsFromFid } from '../utils/getUserDetails.js'
-import { config } from '../utils/config.js'
 import { ImageResponse } from 'hono-og'
-import nftAbi from "../nftDetails/abi.json" assert { type: "json" };
 import { Address, createPublicClient, http } from 'viem'
-import { arbitrumSepolia, arbitrum } from 'viem/chains'
+import { arbitrum } from 'viem/chains'
+import nftAbi from "../nftDetails/abi.json" assert { type: "json" }
+import { config } from '../utils/config.js'
+import { getUserDetailsFromFid } from '../utils/getUserDetails.js'
 
 const arbitrumClient = createPublicClient({
   transport: http(),
@@ -29,6 +29,7 @@ export const app = new Frog({
   basePath: "/api",
   // Supply a Hub to enable frame verification.
   // hub: neynar({ apiKey: 'NEYNAR_FROG_FM' })
+  browserLocation: OPEN_SEA_URL
 });
 
 
@@ -216,7 +217,7 @@ const { frameData } = c
   const fid = frameData.fid
   const nftAddress = config.REQUIRED_NFT_ADDRESS;
   return c.contract({
-    chainId: "eip155:421614",
+    chainId: "eip155:42161",
     abi: nftAbi,
     functionName: "mint",
     args: [fid],
