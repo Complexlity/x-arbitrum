@@ -97,19 +97,38 @@ app.frame('/', (c) => {
     }
   ]
 })
+app.frame('/s', (c) => {
+  return c.res({
+    action:"/finish",
+    image: (
+      <NftImage />
+    ),
+    intents: [
+      <Button.Transaction target="/mint">Mint Yours</Button.Transaction>
+    ],
+  },)
+
+}, {
+  fonts: [
+    {
+      name: "Ojuju",
+  weight: 600,
+      source: "google"
+    }
+  ]
+})
 
 app.frame(
   "/finish",
   async (c) => {
     const { frameData } = c;
 
-    // if (!frameData)
-    //   return c.error({
-    //     message: "Frame data not found",
-    //   });
+    if (!frameData)
+      return c.error({
+        message: "Frame data not found",
+      });
 
-    // const fid = frameData.fid
-    const fid = 213183
+    const fid = frameData.fid
     const userImageAndUsername = await getUserDetailsFromFid(fid);
   const data = await arbitrumClient.readContract({
   address: config.REQUIRED_NFT_ADDRESS as Address,
