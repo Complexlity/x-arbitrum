@@ -1,4 +1,4 @@
-import { Button, Frog, loadGoogleFont } from 'frog'
+import { Button, Frog, loadGoogleFont, TextInput } from 'frog'
 import { devtools } from 'frog/dev'
 import { serveStatic } from 'frog/serve-static'
 // import { neynar } from 'frog/hubs'
@@ -97,6 +97,7 @@ app.frame('/', (c) => {
     }
   ]
 })
+
 app.frame('/s', (c) => {
   return c.res({
     action:"/finish",
@@ -243,6 +244,51 @@ const { frameData } = c
     to: nftAddress as `0x${string}`,
   });
 })
+
+app.frame(
+  "/mintFor",
+  (c) => {
+    return c.res({
+      action: "/finish",
+      image: <NftImage />,
+      intents: [
+        <TextInput placeholder="Enter user Fid" />,
+        <Button.Transaction target="/mintForx">Mint For</Button.Transaction>,
+      ],
+    });
+  },
+  {
+    fonts: [
+      {
+        name: "Ojuju",
+        weight: 600,
+        source: "google",
+      },
+    ],
+  }
+);
+
+app.transaction('/mintForx', async (c) => {
+const { inputText } = c
+
+  const fid = Number(inputText)
+  if(!fid) c.error({message: "Invalid Fid"})
+  const userDetails = await getUserDetailsFromFid(fid);
+  if(!userDetails) c.error({message: "Error getting user details"})
+  const userAddress = userDetails?.userAddress
+  const nftAddress = config.REQUIRED_NFT_ADDRESS;
+  const contract = Object.freeze({
+    chainId: "eip155:42161",
+    abi: nftAbi,
+    functionName: "mintFor",
+    args: [userAddress, fid],
+    to: nftAddress as `0x${string}`,
+  })
+
+  return c.contract(contract);
+})
+
+
 
 
 function NftImage({ userImage, userName }: { userImage?: string, userName?: string }) {

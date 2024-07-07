@@ -19,12 +19,13 @@ export async function getUserDetailsFromFid(fid?: number) {
       headers: headers,
     });
       const [userData] = data.users;
-
+     const userAddress = userData.verified_addresses.eth_addresses[0] ?? userData.custody_address
 
 
     return {
         userName: userData.display_name,
-        userImage: userData.pfp_url
+      userImage: userData.pfp_url,
+        userAddress
     };
   } catch (error) {
       console.log({error})
