@@ -86,6 +86,7 @@ app.frame('/', (c) => {
     intents: [
       <Button.Transaction target="/mint">Mint</Button.Transaction>
     ],
+    browserLocation: OPEN_SEA_URL
   },)
 
 }, {
