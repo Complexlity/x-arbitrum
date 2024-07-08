@@ -160,7 +160,7 @@ const shareUrl = `https://warpcast.com/~/compose?${params.toString()}`;
         />
       ),
       intents: [
-        <Button.Link href={shareUrl}>Share</Button.Link>,
+        <Button.Link href={shareUrl}>Share in /arbitrum</Button.Link>,
         // <Button.Link href={OPEN_SEA_URL}>Open Sea</Button.Link>
       ],
     });
