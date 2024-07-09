@@ -149,6 +149,10 @@ params.append(
   "embeds[]",
   `${config.HOST}/api/s/${fid}`
 );
+params.append(
+  "channelKey",
+  `arbitrum`
+);
 
 const shareUrl = `https://warpcast.com/~/compose?${params.toString()}`;
 
